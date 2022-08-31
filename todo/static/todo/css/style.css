@@ -16,16 +16,16 @@
     background-color: lightcoral;
     color: aliceblue;
     margin: auto;
-    width: 40%;
-    height: 30%;
+    width: 12rem;
+    height: 30px;
     text-align: center;
 }
 #success {
     background-color: darkseagreen ;
     color:rgb(231, 200, 158);
     margin: auto;
-    width: 40%;
-    height: 30%;
+    width: 12rem;
+    height: 30px;
     text-align: center;
 }
 
