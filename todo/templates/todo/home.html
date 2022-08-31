@@ -1,23 +1,92 @@
 {% extends 'todo/base.html' %}
 
-    
+
 {% block content %}
 <div class="container">
-    <div>
-
-        <form action="/add" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="ADD">
-        </form>
+    <div class="row mt-2">
+        <div class="mx-auto shadow" style="min-width: 280px;">
+            {% load crispy_forms_tags %}
+            <h1>Todo APP</h1>
+            <hr>
+            <form action="/add" method="post">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input type="submit" class="btn btn-success w-100 my-1" value="ADD">
+            </form>
+        </div>
     </div>
-    <div>
+    <div >
+        <div class="border">
+            {% if todos|length == 0 %}
+            <div class="p-4">
+                <br>
+                <br>
+                <div class="alert alert-danger text-center">
+                    <p class="" style="font-size: 30px;">ToDo Lists</p>
+                </div>
+                <br>
+                <br>
+            </div>
+            {%else%}
+            <div class="p-2">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Delete</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for todo in todos%}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{todo.title}}</td>
+                            {% if todo.status == 'C'%}
+                            <td>
+                                ✅
+                            </td>
+                            {% elif todo.status == 'I'%}
+                            <td>
+                                🚧
+                            </td>
+                            {% elif todo.status == 'P'%}
+                            <td>
+                                💤
+                            </td>
+                            {%endif%}
 
-        <ul>
-            {% for todo in todos %}
-            <li><a href="{% url 'update' todo.id %}" class="text-success">{{ todo }}</a></li>
-            {% endfor %}
-        </ul>
+                            <td>
+                                {% if todo.priority == '1'%}
+                                    1️⃣
+                                {%elif todo.priority == '2'%}
+                                    2️⃣
+                                {%elif todo.priority == '3'%}
+                                    3️⃣
+                                {%elif todo.priority == '4'%}
+                                    4️⃣
+                                {%elif todo.priority == '5'%}
+                                    5️⃣
+                                {%endif%}
+                            </td>
+
+                            <td>
+                                <a href="delete/{{todo.id}}" title="Delete" class="">🗑️</a> 
+                            </td>
+                            <td>
+                                    <a href="/update/{{todo.id}}"  class="">⚙️</a> 
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {%endif%}
+        </div>
     </div>
 </div>
 {% endblock content %}
