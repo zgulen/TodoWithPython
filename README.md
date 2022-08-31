@@ -1,1 +1,1 @@
-! [](django-todoapp.gif)
+![](django-todoapp.gif)
