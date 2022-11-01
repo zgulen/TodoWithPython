@@ -8,11 +8,15 @@
             {% load crispy_forms_tags %}
             <h1>Todo APP</h1>
             <hr>
+            {%if request.user.is_authenticated%}
             <form action="/add" method="post">
                 {% csrf_token %}
                 {{ form | crispy }}
                 <input type="submit" class="btn btn-success w-100 my-1" value="ADD">
             </form>
+            {%else%}
+            <a href="{%url 'login'%}"><button class="btn btn-success w-100 my-1">Login To ADD</button></a>
+            {%endif%}
         </div>
     </div>
     <div >

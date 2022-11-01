@@ -16,7 +16,18 @@
         <nav class="navbar navbar-expand-lg navbar navbar-dark ">
             <div class="container-fluid ">
                 <a class="navbar-brand" href="/">
-                <img src="{% static 'todo/images/cw_logo.png' %}" alt="Hi!" width="45" height="45">Todo App</a>
+                    <img src="{% static 'todo/images/cw_logo.png' %}" alt="Hi!" width="45" height="45">Todo App</a>
+                </div>
+                {%if request.user.is_authenticated %} 
+                <div class="d-flex">
+                    <a href="{% url 'logout' %}"><button class="btn btn-danger mx-1">Logout</button></a>
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'admin:index' %}"><button class="btn btn-danger mx-1">ADMIN</button></a>
+                    {%endif%}
+                    {%else%}
+                    <a href="{% url 'login' %}"><button class="btn btn-danger mx-1">Login</button></a>
+                    <a href="{% url 'register' %}"><button class="btn btn-danger mx-1">Register</button></a>
+                {%endif%}
             </div>
         </nav>
 
